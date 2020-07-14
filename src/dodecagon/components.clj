@@ -1,44 +1,11 @@
 (ns dodecagon.components
   (:require [com.stuartsierra.component :as component]
             [io.pedestal.http :as pedestal]
-            [io.pedestal.http.route :as route]
             [dodecagon.components.config :refer [new-config]]
             [dodecagon.components.routes :refer [new-routes]]
+            [dodecagon.components.service :refer [new-service]]
             [dodecagon.service :as service]))
 
-(def prod-service
-  {:env :prod})
-
-(def dev-service
-  (pedestal/dev-interceptors
-    {:env                        :dev
-     ::pedestal/join?           false
-     ::pedestal/secure-headers  {:content-security-policy-settings {:object-src "none"}}
-     ::pedestal/allowed-origins {:creds true :allowed-origins (constantly true)}}))
-
-(defn runnable-service [service-map config routes]
-  (let [base-service (if (= (:environment config) :prod)
-                       prod-service
-                       dev-service)]
-    (-> base-service
-        (merge {::pedestal/router          :prefix-tree
-                ::pedestal/routes          #(route/expand-routes (deref routes))
-                ::pedestal/resource-path   "/public"
-                ::pedestal/type            :jetty
-                ::pedestal/port            (:dev-port config)
-                ;; ::pedestal/interceptors    (update )
-                })
-        pedestal/default-interceptors)))
-
-(defrecord Service [config routes]
-  component/Lifecycle
-  (start [this]
-    (assoc
-      this
-      :runnable-service
-      (runnable-service this (:config config) (:routes routes))))
-  (stop [this]
-    (dissoc this :runnable-service)))
 
 (defrecord Servlet [service]
   component/Lifecycle
@@ -59,7 +26,7 @@
   (component/system-map
     :config (new-config)
     :routes (new-routes)
-    :service (component/using (map->Service {}) [:config :routes])
+    :service (component/using (new-service) [:config :routes])
     :servlet (component/using (->Servlet {}) [:service])))
 
 (def systems-map
