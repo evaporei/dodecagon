@@ -2,16 +2,8 @@
   (:require [com.stuartsierra.component :as component]
             [io.pedestal.http :as pedestal]
             [io.pedestal.http.route :as route]
+            [dodecagon.components.config :refer [new-config]]
             [dodecagon.service :as service]))
-
-(def config
-  {:environment :prod
-   :dev-port    8080})
-
-(defrecord Config [config]
-  component/Lifecycle
-  (start [this] this)
-  (stop [this] this))
 
 (defrecord Routes [routes]
   component/Lifecycle
@@ -71,7 +63,7 @@
 
 (def base-system
   (component/system-map
-    :config (->Config config)
+    :config (new-config)
     :routes (->Routes #'service/routes)
     :service (component/using (map->Service {}) [:config :routes])
     :servlet (component/using (->Servlet {}) [:service])))
