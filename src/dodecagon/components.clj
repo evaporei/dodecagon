@@ -3,14 +3,8 @@
             [io.pedestal.http :as pedestal]
             [io.pedestal.http.route :as route]
             [dodecagon.components.config :refer [new-config]]
+            [dodecagon.components.routes :refer [new-routes]]
             [dodecagon.service :as service]))
-
-(defrecord Routes [routes]
-  component/Lifecycle
-  (start [this]
-    (assoc this :routes routes))
-  (stop [this]
-    (dissoc this :routes)))
 
 (def prod-service
   {:env :prod})
@@ -64,7 +58,7 @@
 (def base-system
   (component/system-map
     :config (new-config)
-    :routes (->Routes #'service/routes)
+    :routes (new-routes)
     :service (component/using (map->Service {}) [:config :routes])
     :servlet (component/using (->Servlet {}) [:service])))
 
