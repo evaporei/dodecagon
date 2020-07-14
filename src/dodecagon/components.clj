@@ -12,6 +12,7 @@
     :service (component/using (new-service) [:config :routes])
     :servlet (component/using (new-servlet) [:service])))
 
+;; TODO: add test/dev key
 (def systems-map
   {:base base-system})
 

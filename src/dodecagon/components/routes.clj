@@ -9,5 +9,7 @@
   (stop [this]
     (dissoc this :routes)))
 
+;; TODO: maybe make variadic fn
+
 (defn new-routes []
   (->Routes #'service/routes))

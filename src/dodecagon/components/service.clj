@@ -23,6 +23,7 @@
                 ::pedestal/resource-path   "/public"
                 ::pedestal/type            :jetty
                 ::pedestal/port            (:dev-port config)
+                ;; TODO: add system-interceptor
                 ;; ::pedestal/interceptors    (update )
                 })
         pedestal/default-interceptors)))
@@ -36,6 +37,8 @@
       (runnable-service this (:config config) (:routes routes))))
   (stop [this]
     (dissoc this :runnable-service)))
+
+;; TODO: maybe make variadic fn
 
 (defn new-service []
   (map->Service {}))

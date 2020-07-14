@@ -4,6 +4,7 @@
             [io.pedestal.http :as bootstrap]
             [dodecagon.service :as service]))
 
+;; TODO: fix tests
 (def service
   (::bootstrap/service-fn (bootstrap/create-servlet service/service)))
 

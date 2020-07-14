@@ -17,5 +17,7 @@
     (pedestal/stop (:instance this))
     (dissoc this :instance)))
 
+;; TODO: maybe make variadic fn
+
 (defn new-servlet []
   (->Servlet {}))
