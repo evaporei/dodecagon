@@ -1,6 +1,6 @@
 # dodecagon
 
-FIXME
+Clojure Hexagonal Architecture Example.
 
 ## Getting Started
 
