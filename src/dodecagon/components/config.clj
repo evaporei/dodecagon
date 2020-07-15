@@ -12,6 +12,6 @@
 
 (defn new-config
   ([]
-    (new-config default-config))
+   (new-config default-config))
   ([config]
-    (->Config config)))
+   (->Config config)))

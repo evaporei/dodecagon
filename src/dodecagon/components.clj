@@ -18,6 +18,6 @@
 
 (defn create-and-start-system!
   ([]
-    (create-and-start-system! :base))
+   (create-and-start-system! :base))
   ([env]
-    (component/start (env systems-map))))
+   (component/start (env systems-map))))
