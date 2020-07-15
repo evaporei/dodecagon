@@ -16,8 +16,20 @@
 (def systems-map
   {:base base-system})
 
+(def system (atom nil))
+
 (defn create-and-start-system!
   ([]
    (create-and-start-system! :base))
   ([env]
-   (component/start (env systems-map))))
+   (->> systems-map
+        env
+        component/start
+        (reset! system))))
+
+(defn stop-system! []
+  (swap! system component/stop))
+
+(defn restart-system! []
+  (stop-system!)
+  (create-and-start-system!))
