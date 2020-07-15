@@ -21,7 +21,7 @@
   (let [custom-interceptors [(add-components-interceptor service)]]
     (update service-map ::pedestal/interceptors concat custom-interceptors)))
 
-(defn runnable-service [service-map config routes]
+(defn runnable-service [service config routes]
   (let [base-service (if (= (:environment config) :prod)
                        prod-service
                        dev-service)]
@@ -32,7 +32,7 @@
                 ::pedestal/type            :jetty
                 ::pedestal/port            (:dev-port config)})
         pedestal/default-interceptors
-        (add-custom-interceptors service-map))))
+        (add-custom-interceptors service))))
 
 (defrecord Service [config routes]
   component/Lifecycle
