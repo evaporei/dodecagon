@@ -1,6 +1,6 @@
 (ns dodecagon.server
   (:gen-class) ; for -main method in uberjar
-  (:require [dodecagon.components :as components]))
+  (:require [dodecagon.system :as system]))
 
 ;; TODO: add run-dev main
 
@@ -8,4 +8,4 @@
   "The entry-point for 'lein run'"
   [& args]
   (println "\nCreating your server...")
-  (components/create-and-start-system! :base))
+  (system/create-and-start-system! :base))

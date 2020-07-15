@@ -1,4 +1,4 @@
-(ns dodecagon.components
+(ns dodecagon.system
   (:require [com.stuartsierra.component :as component]
             [dodecagon.components.config :refer [new-config]]
             [dodecagon.components.routes :refer [new-routes]]
@@ -28,7 +28,8 @@
         (reset! system))))
 
 (defn stop-system! []
-  (swap! system component/stop))
+  (when-not (nil? @system)
+    (swap! system component/stop)))
 
 (defn restart-system! []
   (stop-system!)
