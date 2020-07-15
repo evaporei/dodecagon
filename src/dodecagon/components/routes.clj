@@ -9,7 +9,9 @@
   (stop [this]
     (dissoc this :routes)))
 
-;; TODO: maybe make variadic fn
-
-(defn new-routes []
-  (->Routes #'service/routes))
+(defn new-routes
+  "The routes param needs to be passed to the `var` function or the `#'`"
+  ([]
+   (new-routes #'service/routes))
+  ([routes]
+   (->Routes routes)))

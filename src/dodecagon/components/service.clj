@@ -38,7 +38,5 @@
   (stop [this]
     (dissoc this :runnable-service)))
 
-;; TODO: maybe make variadic fn
-
 (defn new-service []
   (map->Service {}))
