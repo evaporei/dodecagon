@@ -2,6 +2,21 @@
 
 Clojure Hexagonal Architecture Example.
 
+## To Do
+
+- [x] Basic components/system setup
+- [x] Functions to start/stop/restart system
+- [x] Pedestal interceptor to add components in request
+- [ ] Dev/test system
+- [ ] Create test structure
+- [ ] Parse request body
+- [ ] schema route validation (dev)
+- [ ] InMemory storage
+- [ ] Database layer
+- [ ] Controller layer
+- [ ] Adapter layer
+- [ ] Logic layer
+
 ## Getting Started
 
 1. Start the application: `lein run`
